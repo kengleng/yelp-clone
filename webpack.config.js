@@ -33,6 +33,7 @@ const defines =
   });
 
 var config = getConfig({
+  isDev,
   in: join(__dirname, 'src/app.js'),
   out: join(__dirname, 'dist'),
   clearBeforeBuild: true
@@ -44,7 +45,13 @@ config.resolve.alias = {
   'containers': join(src, 'containers'),
   'components': join(src, 'components'),
   'utils': join(src, 'utils')
-}
+};
+
+config.externals = {
+  'react/lib/ReactContext': true,
+  'react/lib/ExecutionEnvironment': true,
+  'react/addons': true
+};
 
 config.plugins = [
   new webpack.DefinePlugin(defines)
